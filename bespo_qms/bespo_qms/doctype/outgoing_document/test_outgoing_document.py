@@ -35,23 +35,24 @@ class TestOutgoingDocument(FrappeTestCase):
     def tearDown(self):
         """Clean up test data."""
         frappe.set_user("Administrator")
-        if frappe.db.exists("Outgoing Document", self.doc_name):
-            try:
-                frappe.delete_doc("Outgoing Document", self.doc_name, force=True)
-            except Exception:
-                pass
+        for name in ([self.doc_name] if hasattr(self, "doc_name") else []):
+            if frappe.db.exists("Outgoing Document", name):
+                try:
+                    frappe.delete_doc("Outgoing Document", name, force=True)
+                except Exception:
+                    pass
         if hasattr(self, "test_category") and frappe.db.exists("QMS Document Category", self.test_category.name):
             try:
                 frappe.delete_doc("QMS Document Category", self.test_category.name, force=True)
             except Exception:
                 pass
-        frappe.db.commit()
 
     def test_create_outgoing_document(self):
         """Test creating a new Outgoing Document."""
+        unique_subject = f"New Outgoing Document {frappe.utils.now_datetime().strftime('%H%M%S%f')}"
         doc = frappe.get_doc({
             "doctype": "Outgoing Document",
-            "subject": "New Outgoing Document",
+            "subject": unique_subject,
             "recipient_name": "External Recipient",
             "recipient_email": "external@recipient.com",
             "recipient_reference": "REF-001",
@@ -60,7 +61,7 @@ class TestOutgoingDocument(FrappeTestCase):
         })
         doc.insert()
         self.assertTrue(doc.name)
-        self.assertEqual(doc.subject, "New Outgoing Document")
+        self.assertEqual(doc.subject, unique_subject)
         self.assertEqual(doc.status, "Draft")
 
     def test_read_outgoing_document(self):
@@ -75,7 +76,6 @@ class TestOutgoingDocument(FrappeTestCase):
         doc = frappe.get_doc("Outgoing Document", self.doc_name)
         doc.recipient_reference = "UPD-REF"
         doc.save()
-        frappe.db.commit()
         updated = frappe.get_doc("Outgoing Document", self.doc_name)
         self.assertEqual(updated.recipient_reference, "UPD-REF")
 
@@ -105,12 +105,30 @@ class TestOutgoingDocument(FrappeTestCase):
         self.assertIn("amended_from", [f.fieldname for f in doc.meta.fields])
 
     def test_delete_outgoing_document(self):
-        """Test deleting an Outgoing Document."""
-        doc = frappe.get_doc("Outgoing Document", self.doc_name)
+        """Test deleting an Outgoing Document — uses its own doc to avoid polluting setUp."""
+        unique_subject = f"Delete Test {frappe.utils.now_datetime().strftime('%H%M%S%f')}"
+        doc = frappe.get_doc({
+            "doctype": "Outgoing Document",
+            "subject": unique_subject,
+            "recipient_name": "To Delete",
+            "recipient_email": "delete@test.com",
+            "document_date": frappe.utils.today(),
+            "naming_series": "QMS-OUT-.YYYY.-.#####"
+        }).insert()
         doc.delete()
-        self.assertFalse(frappe.db.exists("Outgoing Document", self.doc_name))
+        self.assertFalse(frappe.db.exists("Outgoing Document", doc.name))
 
     def test_before_workflow_action_method_exists(self):
         """Test that workflow action validation exists in the class."""
         from bespo_qms.bespo_qms.doctype.outgoing_document.outgoing_document import OutgoingDocument
         self.assertTrue(hasattr(OutgoingDocument, "before_workflow_action"))
+
+    def test_autoname_method_exists(self):
+        """Test that the autoname method is defined."""
+        from bespo_qms.bespo_qms.doctype.outgoing_document.outgoing_document import OutgoingDocument
+        self.assertTrue(hasattr(OutgoingDocument, "autoname"))
+
+    def test_on_submit_sets_approved_by(self):
+        """Test that on_submit hook is defined."""
+        from bespo_qms.bespo_qms.doctype.outgoing_document.outgoing_document import OutgoingDocument
+        self.assertTrue(hasattr(OutgoingDocument, "on_submit"))

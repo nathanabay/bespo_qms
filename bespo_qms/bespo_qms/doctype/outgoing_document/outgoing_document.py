@@ -20,7 +20,7 @@ class OutgoingDocument(Document):
 
     def before_workflow_action(self, workflow_action):
         """Block submission if no file is attached — ISO 9001 mandatory documentation compliance."""
-        if workflow_action == "Submit for Approval":
+        if workflow_action in ("Submit for Approval", "Dispatch"):
             attachments = frappe.get_all(
                 "File",
                 filters={"attached_to_doctype": self.doctype, "attached_to_name": self.name},

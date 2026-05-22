@@ -1,5 +1,4 @@
 import frappe
-import json
 
 def setup_dashboards():
 
@@ -10,39 +9,39 @@ def setup_dashboards():
             "doctype": "Outgoing Document",
             "function": "Count",
             "filters": '[["Outgoing Document","status","=","Pending"]]',
-            "color": "#ff8c00" # Orange
+            "color": "#ff8c00"
         },
         {
             "name": "Total Approved Outgoing",
             "doctype": "Outgoing Document",
             "function": "Count",
             "filters": '[["Outgoing Document","status","=","Approved"]]',
-            "color": "#2e8b57" # SeaGreen
+            "color": "#2e8b57"
         },
         {
             "name": "Pending Incoming Action",
             "doctype": "Incoming Document",
             "function": "Count",
             "filters": '[["Incoming Document","status","=","Draft"]]',
-            "color": "#dc143c" # Crimson
+            "color": "#dc143c"
         }
     ]
 
     for c in cards:
         if frappe.db.exists("Number Card", c["name"]):
-            frappe.delete_doc("Number Card", c["name"], force=True)
-            
-        doc = frappe.new_doc("Number Card")
-        doc.label = c["name"]
-        doc.document_type = c["doctype"]
-        doc.function = c["function"]
-        doc.filters_json = c["filters"]
-        doc.color = c["color"]
-        doc.is_standard = 1
-        doc.module = "BESPO_QMS"
-        doc.is_public = 1
-        doc.insert(ignore_permissions=True)
-        print(f"Number Card '{c['name']}' created.")
+            print(f"Number Card '{c['name']}' already exists, skipping.")
+        else:
+            doc = frappe.new_doc("Number Card")
+            doc.label = c["name"]
+            doc.document_type = c["doctype"]
+            doc.function = c["function"]
+            doc.filters_json = c["filters"]
+            doc.color = c["color"]
+            doc.is_standard = 1
+            doc.module = "BESPO_QMS"
+            doc.is_public = 1
+            doc.insert(ignore_permissions=True)
+            print(f"Number Card '{c['name']}' created.")
 
     # --- 2. Create Dashboard Charts ---
     charts = [
@@ -68,22 +67,22 @@ def setup_dashboards():
 
     for ch in charts:
         if frappe.db.exists("Dashboard Chart", ch["name"]):
-            frappe.delete_doc("Dashboard Chart", ch["name"], force=True)
-            
-        doc = frappe.new_doc("Dashboard Chart")
-        doc.chart_name = ch["name"]
-        doc.chart_type = ch["chart_type"]
-        doc.document_type = ch["document_type"]
-        doc.group_by_type = ch["group_by_type"]
-        doc.group_by_based_on = ch["group_by_based_on"]
-        doc.type = ch["type"]
-        doc.color = ch["color"]
-        doc.filters_json = "{}"
-        doc.is_standard = 1
-        doc.module = "BESPO_QMS"
-        doc.is_public = 1
-        doc.insert(ignore_permissions=True)
-        print(f"Dashboard Chart '{ch['name']}' created.")
+            print(f"Dashboard Chart '{ch['name']}' already exists, skipping.")
+        else:
+            doc = frappe.new_doc("Dashboard Chart")
+            doc.chart_name = ch["name"]
+            doc.chart_type = ch["chart_type"]
+            doc.document_type = ch["document_type"]
+            doc.group_by_type = ch["group_by_type"]
+            doc.group_by_based_on = ch["group_by_based_on"]
+            doc.type = ch["type"]
+            doc.color = ch["color"]
+            doc.filters_json = "{}"
+            doc.is_standard = 1
+            doc.module = "BESPO_QMS"
+            doc.is_public = 1
+            doc.insert(ignore_permissions=True)
+            print(f"Dashboard Chart '{ch['name']}' created.")
 
 if __name__ == "__main__":
     setup_dashboards()

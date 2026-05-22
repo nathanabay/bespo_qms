@@ -13,7 +13,7 @@ def setup_workspaces_and_submittable():
     doc.title = workspace_name
     doc.module = "BESPO_QMS"
     doc.category = "Modules"
-    doc.icon = "🛡️"
+    doc.icon = "shield"
     doc.is_hidden = 0
     doc.public = 1
 

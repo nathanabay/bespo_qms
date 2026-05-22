@@ -25,12 +25,12 @@
   "pdf_generator": "wkhtmltopdf",
   "print_format_builder": 0,
   "print_format_builder_beta": 0,
-  "print_format_for": "DocType",
+  "print_format_for": "Print Format",
   "print_format_type": "Jinja",
   "raw_commands": null,
   "raw_printing": 0,
   "report": null,
   "show_section_headings": 0,
-  "standard": "No"
+  "standard": 0
  }
 ]

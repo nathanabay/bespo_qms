@@ -61,7 +61,7 @@
    "fieldname": "status",
    "fieldtype": "Select",
    "label": "Status",
-   "options": "Draft\nPending\nActioned\nArchived",
+   "options": "Draft\nPending\nActioned\nCancelled",
    "read_only": 1
   },
   {
@@ -194,7 +194,10 @@
    "report": 1,
    "role": "QMS User",
    "share": 0,
-   "write": 1
+   "write": 1,
+   "submit": 0,
+   "cancel": 0,
+   "amend": 0
   },
   {
    "create": 1,
@@ -206,7 +209,10 @@
    "report": 1,
    "role": "QMS Executive",
    "share": 0,
-   "write": 1
+   "write": 1,
+   "submit": 1,
+   "cancel": 1,
+   "amend": 1
   }
  ],
  "row_format": "Dynamic",

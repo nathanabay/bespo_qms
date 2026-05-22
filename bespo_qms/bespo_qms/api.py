@@ -17,7 +17,7 @@ import frappe
 @frappe.whitelist()
 def get_opportunity_details(opportunity):
     """Fetch key CRM data from a linked Opportunity."""
-    frappe.only_for("Sales Manager")
+    frappe.only_for("QMS User", "QMS Executive", "System Manager")
     if not opportunity:
         return {}
     opp = frappe.get_value(
@@ -32,7 +32,7 @@ def get_opportunity_details(opportunity):
 @frappe.whitelist()
 def get_project_details(project):
     """Fetch key scheduling data from a linked Project."""
-    frappe.only_for("Sales Manager")
+    frappe.only_for("QMS User", "QMS Executive", "System Manager")
     if not project:
         return {}
     proj = frappe.get_value(
@@ -51,6 +51,8 @@ def get_project_details(project):
 def acknowledge_policy(docname):
     """Record the current user's acknowledgement on an Internal Document."""
     frappe.only_for("QMS User", "QMS Executive", "System Manager")
+    if not frappe.has_permission("Internal Document", "write", docname):
+        frappe.throw("You do not have permission to acknowledge this document.", title="Permission Denied")
     from frappe.utils import now
 
     doc = frappe.get_doc("Internal Document", docname)

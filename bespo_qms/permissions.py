@@ -18,21 +18,35 @@ ENGINEERING_CATEGORIES = [
 HR_CATEGORIES = [
     "Policy Announcements", "Disciplinary & Corrective Notices"
 ]
+INTERNAL_FINANCE_CATEGORIES = [
+    "Inter-Departmental Memos"
+]
+INTERNAL_PROCUREMENT_CATEGORIES = [
+    "Inter-Departmental Memos"
+]
+INTERNAL_ENGINEERING_CATEGORIES = [
+    "Site Progress Reports", "Equipment Maintenance Schedules", "Inter-Departmental Memos"
+]
+INTERNAL_HR_CATEGORIES = [
+    "Policy Announcements", "Disciplinary & Corrective Notices"
+]
+INTERNAL_OTHER_CATEGORIES = [
+    "Corrective and Preventative Action (CAPA) Directives", "Internal Audit Reports & Notices",
+    "Document Change Requests (DCR)", "Management Review Memos", "Other"
+]
 
 def get_allowed_categories(user):
     roles = frappe.get_roles(user)
     if "System Manager" in roles or "QMS Executive" in roles:
         return "ALL"
-    
-    allowed = ["Other", "Letter", "Notice", "Invoice", "Report", "Proposal", "Quote"] # Fallbacks
-    if "QMS Finance" in roles: allowed.extend(FINANCE_CATEGORIES)
-    if "QMS Procurement" in roles: allowed.extend(PROCUREMENT_CATEGORIES)
-    if "QMS Engineering" in roles: allowed.extend(ENGINEERING_CATEGORIES)
-    if "QMS HR" in roles: allowed.extend(HR_CATEGORIES)
-    
-    # Generic QMS User has access to generic stuff plus anything explicit above if they have multi-roles
-    
-    return allowed
+
+    allowed = ["Other", "Letter", "Notice", "Invoice", "Report", "Proposal", "Quote"]
+    if "QMS Finance" in roles: allowed.extend(FINANCE_CATEGORIES + INTERNAL_FINANCE_CATEGORIES)
+    if "QMS Procurement" in roles: allowed.extend(PROCUREMENT_CATEGORIES + INTERNAL_PROCUREMENT_CATEGORIES)
+    if "QMS Engineering" in roles: allowed.extend(ENGINEERING_CATEGORIES + INTERNAL_ENGINEERING_CATEGORIES)
+    if "QMS HR" in roles: allowed.extend(HR_CATEGORIES + INTERNAL_HR_CATEGORIES)
+
+    return list(dict.fromkeys(allowed))
 
 def _build_query(allowed, doctype_name):
     formatted_cats = ", ".join(["%s" for _ in allowed])
@@ -64,10 +78,6 @@ def has_qms_permission(doc, ptype, user):
         return True
         
     if doc.category in allowed:
-        return True
-        
-    # If standard category is somehow not in the list but they created it?
-    if doc.owner == user:
         return True
         
     return False

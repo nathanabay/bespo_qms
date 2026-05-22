@@ -61,7 +61,7 @@
   "transitions": [
    {
     "action": "Complete",
-    "allow_self_approval": 1,
+    "allow_self_approval": 0,
     "allowed": "QMS Executive",
     "condition": null,
     "next_state": "Actioned",
@@ -74,10 +74,23 @@
    },
    {
     "action": "Cancel",
-    "allow_self_approval": 1,
+    "allow_self_approval": 0,
     "allowed": "QMS Executive",
     "condition": null,
     "next_state": "Cancelled",
+    "parent": "Incoming Document Workflow",
+    "parentfield": "transitions",
+    "parenttype": "Workflow",
+    "send_email_to_creator": 0,
+    "state": "Draft",
+    "workflow_builder_id": null
+   },
+   {
+    "action": "Reject",
+    "allow_self_approval": 0,
+    "allowed": "QMS Executive",
+    "condition": null,
+    "next_state": "Draft",
     "parent": "Incoming Document Workflow",
     "parentfield": "transitions",
     "parenttype": "Workflow",
@@ -144,8 +157,8 @@
     "parenttype": "Workflow",
     "send_email": 1,
     "state": "Approved",
-    "update_field": "approved_by",
-    "update_value": "User",
+    "update_field": null,
+    "update_value": null,
     "workflow_builder_id": null
    },
    {
@@ -168,7 +181,7 @@
   "transitions": [
    {
     "action": "Request Approval",
-    "allow_self_approval": 1,
+    "allow_self_approval": 0,
     "allowed": "QMS User",
     "condition": null,
     "next_state": "Pending",
@@ -181,7 +194,7 @@
    },
    {
     "action": "Cancel",
-    "allow_self_approval": 1,
+    "allow_self_approval": 0,
     "allowed": "QMS Executive",
     "condition": null,
     "next_state": "Cancelled",
@@ -194,7 +207,7 @@
    },
    {
     "action": "Cancel",
-    "allow_self_approval": 1,
+    "allow_self_approval": 0,
     "allowed": "QMS Executive",
     "condition": null,
     "next_state": "Cancelled",
@@ -207,7 +220,7 @@
    },
    {
     "action": "Approve",
-    "allow_self_approval": 1,
+    "allow_self_approval": 0,
     "allowed": "QMS Executive",
     "condition": null,
     "next_state": "Approved",
@@ -220,7 +233,7 @@
    },
    {
     "action": "Reject",
-    "allow_self_approval": 1,
+    "allow_self_approval": 0,
     "allowed": "QMS Executive",
     "condition": null,
     "next_state": "Draft",
@@ -233,7 +246,7 @@
    },
    {
     "action": "Cancel",
-    "allow_self_approval": 1,
+    "allow_self_approval": 0,
     "allowed": "QMS Executive",
     "condition": null,
     "next_state": "Cancelled",
@@ -343,7 +356,7 @@
   "transitions": [
    {
     "action": "Cancel",
-    "allow_self_approval": 1,
+    "allow_self_approval": 0,
     "allowed": "QMS Executive",
     "condition": null,
     "next_state": "Cancelled",
@@ -356,7 +369,7 @@
    },
    {
     "action": "Submit for Approval",
-    "allow_self_approval": 1,
+    "allow_self_approval": 0,
     "allowed": "QMS Executive",
     "condition": null,
     "next_state": "Pending",
@@ -369,7 +382,7 @@
    },
    {
     "action": "Cancel",
-    "allow_self_approval": 1,
+    "allow_self_approval": 0,
     "allowed": "QMS Executive",
     "condition": null,
     "next_state": "Cancelled",
@@ -382,7 +395,7 @@
    },
    {
     "action": "Approve",
-    "allow_self_approval": 1,
+    "allow_self_approval": 0,
     "allowed": "QMS Executive",
     "condition": null,
     "next_state": "Approved",
@@ -395,7 +408,7 @@
    },
    {
     "action": "Reject",
-    "allow_self_approval": 1,
+    "allow_self_approval": 0,
     "allowed": "QMS Executive",
     "condition": null,
     "next_state": "Draft",
@@ -408,7 +421,7 @@
    },
    {
     "action": "Dispatch",
-    "allow_self_approval": 1,
+    "allow_self_approval": 0,
     "allowed": "QMS Executive",
     "condition": null,
     "next_state": "Dispatched",
@@ -421,7 +434,7 @@
    },
    {
     "action": "Cancel",
-    "allow_self_approval": 1,
+    "allow_self_approval": 0,
     "allowed": "QMS Executive",
     "condition": null,
     "next_state": "Cancelled",
@@ -434,7 +447,7 @@
    },
    {
     "action": "Cancel",
-    "allow_self_approval": 1,
+    "allow_self_approval": 0,
     "allowed": "QMS Executive",
     "condition": null,
     "next_state": "Cancelled",

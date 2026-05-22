@@ -97,12 +97,16 @@ fixtures = [
 # before_install = "bespo_qms.install.before_install"
 # after_install = "bespo_qms.install.after_install"
 after_install = [
-    "bespo_qms.setup_workflows.setup_workflows",
-    "bespo_qms.setup_notification.setup_email_notification",
+    "bespo_qms.setup_workflows.create_workflows",
+    "bespo_qms.setup_sla_alerts.setup_email_notification",
     "bespo_qms.setup_sla_alerts.setup_sla_alerts",
-    "bespo_qms.setup_print_format.setup_print_format",
+    "bespo_qms.setup_print_format.update_print_format",
     "bespo_qms.setup_department_fields.add_department_fields",
     "bespo_qms.setup_kanban.create_kanban",
+    "bespo_qms.setup_client_script.update_client_script",
+    "bespo_qms.setup_client_scripts.create_client_scripts",
+    "bespo_qms.setup_department_roles.setup_department_roles",
+    "bespo_qms.setup_ui.create_roles_and_letterhead",
 ]
 
 # Uninstallation
