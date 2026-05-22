@@ -85,5 +85,7 @@
  "rows_threshold_for_grid_search": 20,
  "sort_field": "modified",
  "sort_order": "DESC",
- "states": []
+ "states": [],
+ "is_tree": 1,
+ "naming_rule": "Set by user"
 }
