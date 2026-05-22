@@ -1,0 +1,232 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "naming_series:",
+ "creation": "2026-03-03 13:15:00",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "document_info_section",
+  "naming_series",
+  "subject",
+  "category",
+  "status",
+  "cb0",
+  "date_info_section",
+  "document_date",
+  "recipient_info_section",
+  "recipient_name",
+  "recipient_reference",
+  "recipient_email",
+  "cb1",
+  "links_section",
+  "customer",
+  "project",
+  "opportunity",
+  "cb2",
+  "content_section",
+  "attachment",
+  "amendment_reason",
+  "amended_from",
+  "context_section",
+  "opportunity_value",
+  "opportunity_close_date",
+  "project_deadline",
+  "context_notes",
+  "approved_by"
+ ],
+ "fields": [
+  {
+   "fieldname": "document_info_section",
+   "fieldtype": "Section Break",
+   "label": "Document Information"
+  },
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Series",
+   "options": "QMS-OUT-.YYYY.-.#####",
+   "reqd": 1
+  },
+  {
+   "fieldname": "subject",
+   "fieldtype": "Small Text",
+   "in_list_view": 1,
+   "label": "Subject",
+   "reqd": 1
+  },
+  {
+   "fieldname": "category",
+   "fieldtype": "Link",
+   "label": "Category",
+   "options": "QMS Document Category"
+  },
+  {
+   "default": "Draft",
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Draft\nPending\nApproved\nDispatched\nCancelled",
+   "read_only": 1
+  },
+  {
+   "fieldname": "cb0",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "date_info_section",
+   "fieldtype": "Section Break",
+   "label": "Date Information"
+  },
+  {
+   "default": "Today",
+   "fieldname": "document_date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Document Date",
+   "reqd": 1
+  },
+  {
+   "fieldname": "recipient_info_section",
+   "fieldtype": "Section Break",
+   "label": "Recipient Information"
+  },
+  {
+   "fieldname": "recipient_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Recipient Name",
+   "reqd": 1
+  },
+  {
+   "fieldname": "recipient_reference",
+   "fieldtype": "Data",
+   "label": "Recipient Reference"
+  },
+  {
+   "fieldname": "recipient_email",
+   "fieldtype": "Data",
+   "label": "Recipient Email",
+   "options": "Email"
+  },
+  {
+   "fieldname": "cb1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "links_section",
+   "fieldtype": "Section Break",
+   "label": "Links"
+  },
+  {
+   "fieldname": "customer",
+   "fieldtype": "Link",
+   "label": "Customer",
+   "options": "Customer"
+  },
+  {
+   "fieldname": "project",
+   "fieldtype": "Link",
+   "label": "Project",
+   "options": "Project"
+  },
+  {
+   "fieldname": "opportunity",
+   "fieldtype": "Link",
+   "label": "Opportunity",
+   "options": "Opportunity"
+  },
+  {
+   "fieldname": "cb2",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "content_section",
+   "fieldtype": "Section Break",
+   "label": "Content"
+  },
+  {
+   "fieldname": "attachment",
+   "fieldtype": "Attach",
+   "label": "Attachment"
+  },
+  {
+   "depends_on": "eval:doc.amended_from",
+   "fieldname": "amendment_reason",
+   "fieldtype": "Data",
+   "label": "Amendment Reason",
+   "mandatory_depends_on": "eval:doc.amended_from"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Outgoing Document",
+   "print_hide": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "context_section",
+   "fieldtype": "Section Break",
+   "label": "Context Information (Auto-filled)"
+  },
+  {
+   "fieldname": "opportunity_value",
+   "fieldtype": "Currency",
+   "label": "Opportunity Value",
+   "read_only": 1
+  },
+  {
+   "fieldname": "opportunity_close_date",
+   "fieldtype": "Date",
+   "label": "Expected Close Date",
+   "read_only": 1
+  },
+  {
+   "fieldname": "project_deadline",
+   "fieldtype": "Date",
+   "label": "Project Deadline",
+   "read_only": 1
+  },
+  {
+   "fieldname": "context_notes",
+   "fieldtype": "Small Text",
+   "label": "Additional Context"
+  },
+  {
+   "fieldname": "approved_by",
+   "fieldtype": "Data",
+   "label": "Approved By",
+   "read_only": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2026-03-03 22:52:19.918778",
+ "modified_by": "Administrator",
+ "module": "BESPO_QMS",
+ "name": "Outgoing Document",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

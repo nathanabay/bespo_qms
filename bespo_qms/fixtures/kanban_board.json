@@ -1,0 +1,233 @@
+[
+ {
+  "columns": [
+   {
+    "column_name": "Draft",
+    "indicator": "Gray",
+    "order": "[\n \"QMS-PRO-OUT-2026-0005\"\n]",
+    "parent": "Finance Approvals",
+    "parentfield": "columns",
+    "parenttype": "Kanban Board",
+    "status": "Active"
+   },
+   {
+    "column_name": "Pending",
+    "indicator": "Gray",
+    "order": "[]",
+    "parent": "Finance Approvals",
+    "parentfield": "columns",
+    "parenttype": "Kanban Board",
+    "status": "Active"
+   },
+   {
+    "column_name": "Approved",
+    "indicator": "Gray",
+    "order": "[\n \"QMS-FIN-OUT-2026-0001\"\n]",
+    "parent": "Finance Approvals",
+    "parentfield": "columns",
+    "parenttype": "Kanban Board",
+    "status": "Active"
+   },
+   {
+    "column_name": "Dispatched",
+    "indicator": "Gray",
+    "order": "[\n \"QMS-OUT-2026-00003\"\n]",
+    "parent": "Finance Approvals",
+    "parentfield": "columns",
+    "parenttype": "Kanban Board",
+    "status": "Active"
+   },
+   {
+    "column_name": "Cancelled",
+    "indicator": "Gray",
+    "order": "[]",
+    "parent": "Finance Approvals",
+    "parentfield": "columns",
+    "parenttype": "Kanban Board",
+    "status": "Active"
+   }
+  ],
+  "docstatus": 0,
+  "doctype": "Kanban Board",
+  "field_name": "status",
+  "fields": "[\"name\",\"subject\",\"category\",\"status\",\"document_date\"]",
+  "filters": null,
+  "kanban_board_name": "Finance Approvals",
+  "modified": "2026-03-03 19:55:50.876739",
+  "name": "Finance Approvals",
+  "private": 0,
+  "reference_doctype": "Outgoing Document",
+  "show_labels": 0
+ },
+ {
+  "columns": [
+   {
+    "column_name": "Draft",
+    "indicator": "Gray",
+    "order": "[\n \"QMS-PRO-OUT-2026-0005\"\n]",
+    "parent": "Procurement Approvals",
+    "parentfield": "columns",
+    "parenttype": "Kanban Board",
+    "status": "Active"
+   },
+   {
+    "column_name": "Pending",
+    "indicator": "Gray",
+    "order": "[]",
+    "parent": "Procurement Approvals",
+    "parentfield": "columns",
+    "parenttype": "Kanban Board",
+    "status": "Active"
+   },
+   {
+    "column_name": "Approved",
+    "indicator": "Gray",
+    "order": "[\n \"QMS-FIN-OUT-2026-0001\"\n]",
+    "parent": "Procurement Approvals",
+    "parentfield": "columns",
+    "parenttype": "Kanban Board",
+    "status": "Active"
+   },
+   {
+    "column_name": "Dispatched",
+    "indicator": "Gray",
+    "order": "[\n \"QMS-OUT-2026-00003\"\n]",
+    "parent": "Procurement Approvals",
+    "parentfield": "columns",
+    "parenttype": "Kanban Board",
+    "status": "Active"
+   },
+   {
+    "column_name": "Cancelled",
+    "indicator": "Gray",
+    "order": "[]",
+    "parent": "Procurement Approvals",
+    "parentfield": "columns",
+    "parenttype": "Kanban Board",
+    "status": "Active"
+   }
+  ],
+  "docstatus": 0,
+  "doctype": "Kanban Board",
+  "field_name": "status",
+  "fields": "[\"name\",\"subject\",\"category\",\"status\",\"document_date\"]",
+  "filters": null,
+  "kanban_board_name": "Procurement Approvals",
+  "modified": "2026-03-03 19:35:53.488851",
+  "name": "Procurement Approvals",
+  "private": 0,
+  "reference_doctype": "Outgoing Document",
+  "show_labels": 0
+ },
+ {
+  "columns": [
+   {
+    "column_name": "Draft",
+    "indicator": "Gray",
+    "order": "[\n \"QMS-PRO-OUT-2026-0005\"\n]",
+    "parent": "Engineering Approvals",
+    "parentfield": "columns",
+    "parenttype": "Kanban Board",
+    "status": "Active"
+   },
+   {
+    "column_name": "Pending",
+    "indicator": "Gray",
+    "order": "[]",
+    "parent": "Engineering Approvals",
+    "parentfield": "columns",
+    "parenttype": "Kanban Board",
+    "status": "Active"
+   },
+   {
+    "column_name": "Approved",
+    "indicator": "Gray",
+    "order": "[\n \"QMS-FIN-OUT-2026-0001\"\n]",
+    "parent": "Engineering Approvals",
+    "parentfield": "columns",
+    "parenttype": "Kanban Board",
+    "status": "Active"
+   },
+   {
+    "column_name": "Dispatched",
+    "indicator": "Gray",
+    "order": "[\n \"QMS-OUT-2026-00003\"\n]",
+    "parent": "Engineering Approvals",
+    "parentfield": "columns",
+    "parenttype": "Kanban Board",
+    "status": "Active"
+   },
+   {
+    "column_name": "Cancelled",
+    "indicator": "Gray",
+    "order": "[]",
+    "parent": "Engineering Approvals",
+    "parentfield": "columns",
+    "parenttype": "Kanban Board",
+    "status": "Active"
+   }
+  ],
+  "docstatus": 0,
+  "doctype": "Kanban Board",
+  "field_name": "status",
+  "fields": "[\"name\",\"subject\",\"category\",\"status\",\"document_date\"]",
+  "filters": null,
+  "kanban_board_name": "Engineering Approvals",
+  "modified": "2026-03-03 19:35:53.597434",
+  "name": "Engineering Approvals",
+  "private": 0,
+  "reference_doctype": "Outgoing Document",
+  "show_labels": 0
+ },
+ {
+  "columns": [
+   {
+    "column_name": "Draft",
+    "indicator": "Gray",
+    "order": "[\n \"QMS-FIN-INT-2026-0005\",\n \"QMS-FIN-INT-2026-0004\"\n]",
+    "parent": "HR Approvals",
+    "parentfield": "columns",
+    "parenttype": "Kanban Board",
+    "status": "Active"
+   },
+   {
+    "column_name": "Pending",
+    "indicator": "Gray",
+    "order": "[]",
+    "parent": "HR Approvals",
+    "parentfield": "columns",
+    "parenttype": "Kanban Board",
+    "status": "Active"
+   },
+   {
+    "column_name": "Approved",
+    "indicator": "Gray",
+    "order": "[]",
+    "parent": "HR Approvals",
+    "parentfield": "columns",
+    "parenttype": "Kanban Board",
+    "status": "Active"
+   },
+   {
+    "column_name": "Cancelled",
+    "indicator": "Gray",
+    "order": "[]",
+    "parent": "HR Approvals",
+    "parentfield": "columns",
+    "parenttype": "Kanban Board",
+    "status": "Active"
+   }
+  ],
+  "docstatus": 0,
+  "doctype": "Kanban Board",
+  "field_name": "status",
+  "fields": "[\"name\",\"subject\",\"category\",\"status\",\"document_date\"]",
+  "filters": null,
+  "kanban_board_name": "HR Approvals",
+  "modified": "2026-03-03 19:35:53.694642",
+  "name": "HR Approvals",
+  "private": 0,
+  "reference_doctype": "Internal Document",
+  "show_labels": 0
+ }
+]

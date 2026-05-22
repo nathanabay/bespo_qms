@@ -1,0 +1,107 @@
+{
+    "actions": [],
+    "allow_rename": 1,
+    "autoname": "field:category_name",
+    "creation": "2026-03-03 22:27:38.103822",
+    "doctype": "DocType",
+    "editable_grid": 1,
+    "engine": "InnoDB",
+    "field_order": [
+        "category_name",
+        "description",
+        "department",
+        "cb1",
+        "requires_periodic_review",
+        "review_frequency_in_months",
+        "retention_period_in_years"
+    ],
+    "fields": [
+        {
+            "fieldname": "category_name",
+            "fieldtype": "Data",
+            "in_list_view": 1,
+            "label": "Category Name",
+            "reqd": 1,
+            "unique": 1
+        },
+        {
+            "fieldname": "description",
+            "fieldtype": "Small Text",
+            "label": "Description"
+        },
+        {
+            "fieldname": "department",
+            "fieldtype": "Link",
+            "in_list_view": 1,
+            "label": "Department",
+            "options": "QMS Department"
+        },
+        {
+            "fieldname": "cb1",
+            "fieldtype": "Column Break"
+        },
+        {
+            "default": "1",
+            "fieldname": "requires_periodic_review",
+            "fieldtype": "Check",
+            "label": "Requires Periodic Review"
+        },
+        {
+            "default": "12",
+            "depends_on": "eval:doc.requires_periodic_review==1",
+            "fieldname": "review_frequency_in_months",
+            "fieldtype": "Int",
+            "label": "Review Frequency (Months)"
+        },
+        {
+            "default": "7",
+            "fieldname": "retention_period_in_years",
+            "fieldtype": "Int",
+            "label": "Retention Period (Years)"
+        }
+    ],
+    "grid_page_length": 50,
+    "index_web_pages_for_search": 1,
+    "links": [],
+    "modified": "2026-03-03 22:40:20.583967",
+    "modified_by": "Administrator",
+    "module": "BESPO_QMS",
+    "name": "QMS Document Category",
+    "owner": "Administrator",
+    "permissions": [
+        {
+            "create": 1,
+            "delete": 1,
+            "email": 1,
+            "export": 1,
+            "print": 1,
+            "read": 1,
+            "report": 1,
+            "role": "System Manager",
+            "share": 1,
+            "write": 1
+        },
+        {
+            "create": 1,
+            "email": 1,
+            "export": 1,
+            "print": 1,
+            "read": 1,
+            "report": 1,
+            "role": "QMS Executive",
+            "share": 1,
+            "write": 1
+        },
+        {
+            "email": 1,
+            "print": 1,
+            "read": 1,
+            "role": "QMS User"
+        }
+    ],
+    "row_format": "Dynamic",
+    "rows_threshold_for_grid_search": 20,
+    "sort_field": "modified",
+    "sort_order": "DESC",
+    "states": []
+}

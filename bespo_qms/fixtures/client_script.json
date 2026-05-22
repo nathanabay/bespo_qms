@@ -1,0 +1,57 @@
+[
+ {
+  "docstatus": 0,
+  "doctype": "Client Script",
+  "dt": "Outgoing Document",
+  "enabled": 1,
+  "modified": "2026-03-03 16:58:31.536022",
+  "module": "BESPO_QMS",
+  "name": "Auto Populate Recipient on Outgoing Document",
+  "script": "\nfrappe.ui.form.on('Outgoing Document', {\n    // ── Customer ──────────────────────────────────────────────────────────────\n    customer: function(frm) {\n        if (!frm.doc.customer) return;\n        frappe.call({\n            method: 'frappe.client.get',\n            args: { doctype: 'Customer', name: frm.doc.customer },\n            callback: function(r) {\n                if (!r.message) return;\n                frm.set_value('recipient_name', r.message.customer_name || frm.doc.customer);\n                // Try to fetch the primary contact email\n                frappe.call({\n                    method: 'frappe.client.get_list',\n                    args: {\n                        doctype: 'Dynamic Link',\n                        filters: { link_doctype: 'Customer', link_name: frm.doc.customer, parenttype: 'Contact' },\n                        parent: 'Contact',\n                        fields: ['parent']\n                    },\n                    callback: function(res) {\n                        if (!res.message || !res.message.length) return;\n                        frappe.call({\n                            method: 'frappe.client.get',\n                            args: { doctype: 'Contact', name: res.message[0].parent },\n                            callback: function(cr) {\n                                if (!cr.message) return;\n                                let c = cr.message;\n                                frm.set_value('recipient_name', (c.first_name || '') + (c.last_name ? ' ' + c.last_name : ''));\n                                if (c.email_ids && c.email_ids.length)\n                                    frm.set_value('recipient_email', c.email_ids[0].email_id);\n                            }\n                        });\n                    }\n                });\n            }\n        });\n    },\n\n    // ── Opportunity ───────────────────────────────────────────────────────────\n    opportunity: function(frm) {\n        if (!frm.doc.opportunity) return;\n        frappe.call({\n            method: 'bespo_qms.BESPO_QMS.doctype.outgoing_document.outgoing_document.get_opportunity_details',\n            args: { opportunity: frm.doc.opportunity },\n            callback: function(r) {\n                if (!r.message) return;\n                let d = r.message;\n                if (d.opportunity_amount)  frm.set_value('opportunity_value',      d.opportunity_amount);\n                if (d.expected_closing)    frm.set_value('opportunity_close_date', d.expected_closing);\n                if (d.customer_name && !frm.doc.recipient_name)\n                    frm.set_value('recipient_name', d.customer_name);\n                frm.set_value('context_notes',\n                    'Linked Opportunity: ' + frm.doc.opportunity +\n                    (d.contact_display ? ' · Contact: ' + d.contact_display : '')\n                );\n            }\n        });\n    },\n\n    // ── Project ───────────────────────────────────────────────────────────────\n    project: function(frm) {\n        if (!frm.doc.project) return;\n        frappe.call({\n            method: 'bespo_qms.BESPO_QMS.doctype.outgoing_document.outgoing_document.get_project_details',\n            args: { project: frm.doc.project },\n            callback: function(r) {\n                if (!r.message) return;\n                let d = r.message;\n                if (d.expected_end_date) frm.set_value('project_deadline', d.expected_end_date);\n                let notes = 'Project: ' + (d.project_name || frm.doc.project);\n                if (d.expected_start_date) notes += ' | Start: ' + d.expected_start_date;\n                if (d.percent_complete)    notes += ' | Progress: ' + d.percent_complete + '%';\n                frm.set_value('context_notes', notes);\n            }\n        });\n    }\n});\n",
+  "view": "Form"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Client Script",
+  "dt": "Internal Document",
+  "enabled": 1,
+  "modified": "2026-03-03 22:55:46.691477",
+  "module": "BESPO_QMS",
+  "name": "QMS Dynamic Categories - Internal Document",
+  "script": "\nfrappe.ui.form.on(\"Internal Document\", {\n    refresh: function(frm) {\n        // Acknowledge Policy button — only visible to logged-in QMS Users\n        if (frm.doc.status === 'Approved' && !frm.is_new()) {\n            let already_acknowledged = (frm.doc.acknowledgements || []).some(\n                r => r.user === frappe.session.user && r.status === 'Acknowledged'\n            );\n            if (!already_acknowledged) {\n                frm.add_custom_button(__('Acknowledge Policy'), function() {\n                    frappe.call({\n                        method: 'bespo_qms.BESPO_QMS.doctype.internal_document.internal_document.acknowledge_policy',\n                        args: { docname: frm.doc.name },\n                        callback: function(r) {\n                            frappe.show_alert({ message: 'Policy acknowledged!', indicator: 'green' }, 3);\n                            frm.reload_doc();\n                        }\n                    });\n                }, __('Actions')).addClass('btn-success');\n            } else {\n                frm.add_custom_button(__('✓ Acknowledged'), function() {}, __('Actions')).prop('disabled', true);\n            }\n        }\n    }\n});\n    ",
+  "view": "Form"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Client Script",
+  "dt": "Incoming Document",
+  "enabled": 1,
+  "modified": "2026-03-03 23:08:55.220033",
+  "module": "BESPO_QMS",
+  "name": "QMS Incoming Document Filters",
+  "script": "\nfrappe.ui.form.on(\"Incoming Document\", {\n    setup: function(frm) {\n        frm.set_query(\"category\", function() {\n            if (frm.doc.department) {\n                return {\n                    filters: [\n                        [\"QMS Document Category\", \"department\", \"in\", [frm.doc.department, \"\"]]\n                    ]\n                };\n            }\n            return {};\n        });\n    }\n});\n",
+  "view": "Form"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Client Script",
+  "dt": "Outgoing Document",
+  "enabled": 1,
+  "modified": "2026-03-03 23:08:55.210685",
+  "module": "BESPO_QMS",
+  "name": "QMS Outgoing Document Filters",
+  "script": "\nfrappe.ui.form.on(\"Outgoing Document\", {\n    setup: function(frm) {\n        frm.set_query(\"category\", function() {\n            if (frm.doc.department) {\n                return {\n                    filters: [\n                        [\"QMS Document Category\", \"department\", \"in\", [frm.doc.department, \"\"]]\n                    ]\n                };\n            }\n            return {};\n        });\n    }\n});\n",
+  "view": "Form"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Client Script",
+  "dt": "Internal Document",
+  "enabled": 1,
+  "modified": "2026-03-03 23:08:54.959230",
+  "module": "BESPO_QMS",
+  "name": "QMS Internal Document Logic",
+  "script": "\nfrappe.ui.form.on(\"Internal Document\", {\n    setup: function(frm) {\n        frm.set_query(\"category\", function() {\n            if (frm.doc.department) {\n                return {\n                    filters: [\n                        [\"QMS Document Category\", \"department\", \"in\", [frm.doc.department, \"\"]]\n                    ]\n                };\n            }\n            return {}; // Or just return all if no department is selected\n        });\n    },\n    refresh: function(frm) {\n        // Acknowledge Policy button\n        if (frm.doc.status === 'Approved' && !frm.is_new()) {\n            let already_acknowledged = (frm.doc.acknowledgements || []).some(\n                r => r.user === frappe.session.user && r.status === 'Acknowledged'\n            );\n            if (!already_acknowledged) {\n                frm.add_custom_button(__('Acknowledge Policy'), function() {\n                    frappe.call({\n                        method: 'bespo_qms.BESPO_QMS.doctype.internal_document.internal_document.acknowledge_policy',\n                        args: { docname: frm.doc.name },\n                        callback: function(r) {\n                            frappe.show_alert({ message: 'Policy acknowledged!', indicator: 'green' }, 3);\n                            frm.reload_doc();\n                        }\n                    });\n                }, __('Actions')).addClass('btn-success');\n            } else {\n                frm.add_custom_button(__('✓ Acknowledged'), function() {}, __('Actions')).prop('disabled', true);\n            }\n        }\n    }\n});\n",
+  "view": "Form"
+ }
+]

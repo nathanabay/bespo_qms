@@ -1,0 +1,45 @@
+[
+ {
+  "attach_files": "",
+  "attach_print": 1,
+  "channel": "Email",
+  "condition": "doc.status == 'Approved'",
+  "date_changed": null,
+  "days_in_advance": 0,
+  "docstatus": 0,
+  "doctype": "Notification",
+  "document_type": "Outgoing Document",
+  "enabled": 1,
+  "event": "Value Change",
+  "from_attach_field": null,
+  "is_standard": 0,
+  "message": "\n        <p>Dear {{ doc.recipient_name }},</p>\n        \n        <p>Your document regarding <strong>{{ doc.subject }}</strong> has been formally approved.</p>\n        <p>Please find the official correspondence attached to this email.</p>\n        \n        <p>Best Regards,<br>Bespo QMS</p>\n        ",
+  "message_type": "Markdown",
+  "method": null,
+  "modified": "2026-03-03 16:18:44.378331",
+  "module": null,
+  "name": "Outgoing Document Approved",
+  "print_format": "Standard QMS Letter",
+  "property_value": null,
+  "recipients": [
+   {
+    "bcc": null,
+    "cc": null,
+    "condition": null,
+    "parent": "Outgoing Document Approved",
+    "parentfield": "recipients",
+    "parenttype": "Notification",
+    "receiver_by_document_field": "recipient_email",
+    "receiver_by_role": null
+   }
+  ],
+  "send_system_notification": 0,
+  "send_to_all_assignees": 0,
+  "sender": "",
+  "sender_email": "",
+  "set_property_after_alert": null,
+  "slack_webhook_url": null,
+  "subject": "Approved Notification: {{ doc.subject }}",
+  "value_changed": "status"
+ }
+]
