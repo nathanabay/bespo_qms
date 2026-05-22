@@ -34,27 +34,27 @@ def get_allowed_categories(user):
     
     return allowed
 
-def get_permission_query_conditions(user):
-    if not user: user = frappe.session.user
-    allowed = get_allowed_categories(user)
-    
-    if allowed == "ALL":
-        return ""
-        
-    formatted_cats = ", ".join([frappe.db.escape(c) for c in allowed])
-    return f"`tab{frappe.flags.current_doctype}`.category IN ({formatted_cats})"
+def _build_query(allowed, doctype_name):
+    formatted_cats = ", ".join(["%s" for _ in allowed])
+    return f"`tab{doctype_name}`.category IN ({formatted_cats})" % tuple(allowed)
 
 def get_incoming_query(user):
-    frappe.flags.current_doctype = "Incoming Document"
-    return get_permission_query_conditions(user)
+    allowed = get_allowed_categories(user)
+    if allowed == "ALL":
+        return ""
+    return _build_query(allowed, "Incoming Document")
 
 def get_outgoing_query(user):
-    frappe.flags.current_doctype = "Outgoing Document"
-    return get_permission_query_conditions(user)
+    allowed = get_allowed_categories(user)
+    if allowed == "ALL":
+        return ""
+    return _build_query(allowed, "Outgoing Document")
 
 def get_internal_query(user):
-    frappe.flags.current_doctype = "Internal Document"
-    return get_permission_query_conditions(user)
+    allowed = get_allowed_categories(user)
+    if allowed == "ALL":
+        return ""
+    return _build_query(allowed, "Internal Document")
 
 def has_qms_permission(doc, ptype, user):
     if not user: user = frappe.session.user

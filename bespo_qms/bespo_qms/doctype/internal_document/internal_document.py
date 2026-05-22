@@ -34,28 +34,3 @@ class InternalDocument(Document):
                 )
 
 
-@frappe.whitelist()
-def acknowledge_policy(docname):
-    """Record the current user's acknowledgement on an Internal Document."""
-    doc = frappe.get_doc("Internal Document", docname)
-
-    # Check if user has already acknowledged
-    for row in doc.acknowledgements:
-        if row.user == frappe.session.user and row.status == "Acknowledged":
-            frappe.throw("You have already acknowledged this policy.", title="Already Acknowledged")
-
-    # Find existing pending row for this user or append a new one
-    existing = next((r for r in doc.acknowledgements if r.user == frappe.session.user), None)
-    if existing:
-        existing.status = "Acknowledged"
-        existing.acknowledged_on = now()
-    else:
-        doc.append("acknowledgements", {
-            "user": frappe.session.user,
-            "status": "Acknowledged",
-            "acknowledged_on": now()
-        })
-
-    doc.save(ignore_permissions=True)
-    frappe.db.commit()
-    return "Acknowledged"

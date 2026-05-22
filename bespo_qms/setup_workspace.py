@@ -130,7 +130,6 @@ def setup_workspaces_and_submittable():
         doc.append("charts", {"chart_name": chart_name})
 
     doc.insert(ignore_permissions=True)
-    frappe.db.commit()
     print(f"Workspace '{workspace_name}' mapped to Kanban Boards successfully.")
 
 if __name__ == "__main__":

@@ -46,7 +46,5 @@ def setup_email_notification():
     else:
         print(f"Notification '{notification_name}' already exists.")
 
-    frappe.db.commit()
-
 if __name__ == "__main__":
     setup_email_notification()

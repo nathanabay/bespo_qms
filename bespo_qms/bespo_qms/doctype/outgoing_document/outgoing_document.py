@@ -38,31 +38,3 @@ class OutgoingDocument(Document):
         self.db_set("approved_by", frappe.session.user, notify=True)
 
 
-@frappe.whitelist()
-def get_opportunity_details(opportunity):
-    """Fetch key CRM data from a linked Opportunity."""
-    frappe.only_for("Sales Manager")
-    if not opportunity:
-        return {}
-    opp = frappe.get_value(
-        "Opportunity",
-        opportunity,
-        ["opportunity_amount", "expected_closing", "customer_name", "contact_display"],
-        as_dict=True,
-    )
-    return opp or {}
-
-
-@frappe.whitelist()
-def get_project_details(project):
-    """Fetch key scheduling data from a linked Project."""
-    frappe.only_for("Sales Manager")
-    if not project:
-        return {}
-    proj = frappe.get_value(
-        "Project",
-        project,
-        ["project_name", "expected_end_date", "expected_start_date", "percent_complete"],
-        as_dict=True,
-    )
-    return proj or {}

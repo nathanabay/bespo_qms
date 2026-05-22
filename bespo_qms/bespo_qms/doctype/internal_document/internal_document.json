@@ -1,7 +1,6 @@
 {
  "actions": [],
  "allow_rename": 1,
- "autoname": "naming_series:",
  "creation": "2026-03-03 17:25:38.334002",
  "doctype": "DocType",
  "editable_grid": 1,
@@ -98,7 +97,7 @@
   },
   {
    "fieldname": "attachment",
-   "fieldtype": "Attach",
+   "fieldtype": "Attach File",
    "label": "Attachment"
   },
   {

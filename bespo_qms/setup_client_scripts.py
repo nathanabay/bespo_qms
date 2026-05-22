@@ -96,16 +96,22 @@ function set_category_options_{dt.replace(' ', '_')}(frm) {{
             frappe.db.set_value("Client Script", s_name, "script", js_code, update_modified=True)
             print(f"Updated script for {dt}")
         else:
-            frappe.get_doc({
-                "doctype": "Client Script",
-                "name": s_name,
-                "dt": dt,
-                "module": "BESPO_QMS",
-                "script": js_code,
-                "enabled": 1
-            }).insert(ignore_permissions=True)
-            print(f"Created script for {dt}")
-            
+            # Create the script if it doesn't exist
+            try:
+                doc = frappe.get_doc({
+                    "doctype": "Client Script",
+                    "name": s_name,
+                    "dt": dt,
+                    "module": "BESPO_QMS",
+                    "script": js_code,
+                    "enabled": 1
+                })
+                doc.insert(ignore_permissions=True)
+                print(f"Created script for {dt}")
+            except Exception as e:
+                print(f"Error creating Client Script for {dt}: {str(e)}")
+                frappe.log_error(f"Error creating Client Script: {s_name}", str(e))
+
     frappe.db.commit()
 
 if __name__ == "__main__":

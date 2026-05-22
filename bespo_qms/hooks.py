@@ -15,7 +15,7 @@ fixtures = [
     {"dt": "Workflow State", "filters": [["name", "in", ["Draft", "Actioned", "Pending", "Approved", "Cancelled", "Dispatched"]]]},
     {"dt": "Workflow Action Master", "filters": [["name", "in", ["Complete", "Request Approval", "Approve", "Reject", "Cancel", "Submit for Approval", "Dispatch"]]]},
     {"dt": "Print Format", "filters": [["module", "=", "BESPO_QMS"]]},
-    {"dt": "Role", "filters": [["name", "in", ["QMS User", "QMS Executive"]]]},
+    {"dt": "Role", "filters": [["name", "in", ["QMS User", "QMS Executive", "QMS Finance", "QMS Procurement", "QMS Engineering", "QMS HR"]]]},
     {"dt": "Notification", "filters": [["name", "=", "Outgoing Document Approved"]]},
     {"dt": "Client Script", "filters": [["module", "=", "BESPO_QMS"]]},
     {"dt": "Kanban Board", "filters": [["name", "in", ["Finance Approvals", "Procurement Approvals", "Engineering Approvals", "HR Approvals"]]]},
@@ -96,6 +96,12 @@ fixtures = [
 
 # before_install = "bespo_qms.install.before_install"
 # after_install = "bespo_qms.install.after_install"
+after_install = [
+    "bespo_qms.setup_workflows.setup_workflows",
+    "bespo_qms.setup_notification.setup_email_notification",
+    "bespo_qms.setup_sla_alerts.setup_sla_alerts",
+    "bespo_qms.setup_print_format.setup_print_format",
+]
 
 # Uninstallation
 # ------------
@@ -172,23 +178,11 @@ has_permission = {
 # Scheduled Tasks
 # ---------------
 
-# scheduler_events = {
-# 	"all": [
-# 		"bespo_qms.tasks.all"
-# 	],
-# 	"daily": [
-# 		"bespo_qms.tasks.daily"
-# 	],
-# 	"hourly": [
-# 		"bespo_qms.tasks.hourly"
-# 	],
-# 	"weekly": [
-# 		"bespo_qms.tasks.weekly"
-# 	],
-# 	"monthly": [
-# 		"bespo_qms.tasks.monthly"
-# 	],
-# }
+scheduler_events = {
+    "daily": [
+        "bespo_qms.setup_sla_alerts.setup_sla_alerts"
+    ],
+}
 
 # Testing
 # -------

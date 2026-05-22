@@ -90,7 +90,5 @@ def update_print_format():
     else:
         print(f"Print Format '{print_format_name}' not found.")
 
-    frappe.db.commit()
-
 if __name__ == "__main__":
     update_print_format()
