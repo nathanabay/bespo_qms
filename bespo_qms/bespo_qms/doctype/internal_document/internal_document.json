@@ -143,7 +143,6 @@
  "modified_by": "Administrator",
  "module": "BESPO_QMS",
  "name": "Internal Document",
- "naming_rule": "By \"Naming Series\" field",
  "owner": "Administrator",
  "permissions": [
   {

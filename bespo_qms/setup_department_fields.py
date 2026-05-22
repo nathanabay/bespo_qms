@@ -2,8 +2,6 @@ import frappe
 from frappe.custom.doctype.custom_field.custom_field import create_custom_field
 
 def add_department_fields():
-    frappe.set_user("Administrator")
-    
     options = "Finance\nProcurement\nEngineering\nHR\nOther"
     
     # 1. Incoming Document
@@ -58,8 +56,6 @@ def add_department_fields():
         }
     )
     print("Added standard department to Internal Document.")
-
-    frappe.db.commit()
 
 if __name__ == "__main__":
     add_department_fields()

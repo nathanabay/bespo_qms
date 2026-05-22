@@ -2,8 +2,7 @@ import frappe
 import json
 
 def create_client_scripts():
-    frappe.set_user("Administrator")
-    
+
     script_name = "QMS Dynamic Categories"
     
     doctypes = ["Incoming Document", "Outgoing Document", "Internal Document"]
@@ -48,7 +47,7 @@ def create_client_scripts():
         if (!already_acknowledged) {
             frm.add_custom_button(__('Acknowledge Policy'), function() {
                 frappe.call({
-                    method: 'bespo_qms.BESPO_QMS.doctype.internal_document.internal_document.acknowledge_policy',
+                    method: 'bespo_qms.api.acknowledge_policy',
                     args: { docname: frm.doc.name },
                     callback: function(r) {
                         frappe.show_alert({ message: 'Policy acknowledged!', indicator: 'green' }, 3);
@@ -111,8 +110,6 @@ function set_category_options_{dt.replace(' ', '_')}(frm) {{
             except Exception as e:
                 print(f"Error creating Client Script for {dt}: {str(e)}")
                 frappe.log_error(f"Error creating Client Script: {s_name}", str(e))
-
-    frappe.db.commit()
 
 if __name__ == "__main__":
     create_client_scripts()

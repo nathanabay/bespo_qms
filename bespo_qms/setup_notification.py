@@ -1,7 +1,6 @@
 import frappe
 
 def setup_email_notification():
-    frappe.set_user("Administrator")
     
     notification_name = "Outgoing Document Approved"
     

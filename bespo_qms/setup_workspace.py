@@ -2,7 +2,6 @@ import frappe
 import json
 
 def setup_workspaces_and_submittable():
-    frappe.set_user("Administrator")
     
     workspace_name = "Bespo QMS"
     if frappe.db.exists("Workspace", workspace_name):

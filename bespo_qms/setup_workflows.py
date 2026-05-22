@@ -1,8 +1,7 @@
 import frappe
 
 def create_workflows():
-    frappe.set_user("Administrator")
-    
+
     # 1. Create Workflow States
     required_states = ["Draft", "Pending", "Approved", "Dispatched", "Cancelled", "Actioned"]
     for state in required_states:

@@ -1,8 +1,7 @@
 import frappe
 
 def update_client_script():
-    frappe.set_user("Administrator")
-    
+
     script_name = "Auto Populate Recipient on Outgoing Document"
     
     if frappe.db.exists("Client Script", script_name):
@@ -50,7 +49,7 @@ frappe.ui.form.on('Outgoing Document', {
     opportunity: function(frm) {
         if (!frm.doc.opportunity) return;
         frappe.call({
-            method: 'bespo_qms.BESPO_QMS.doctype.outgoing_document.outgoing_document.get_opportunity_details',
+            method: 'bespo_qms.api.get_opportunity_details',
             args: { opportunity: frm.doc.opportunity },
             callback: function(r) {
                 if (!r.message) return;
@@ -71,7 +70,7 @@ frappe.ui.form.on('Outgoing Document', {
     project: function(frm) {
         if (!frm.doc.project) return;
         frappe.call({
-            method: 'bespo_qms.BESPO_QMS.doctype.outgoing_document.outgoing_document.get_project_details',
+            method: 'bespo_qms.api.get_project_details',
             args: { project: frm.doc.project },
             callback: function(r) {
                 if (!r.message) return;
@@ -140,7 +139,7 @@ frappe.ui.form.on('Outgoing Document', {
     opportunity: function(frm) {
         if (!frm.doc.opportunity) return;
         frappe.call({
-            method: 'bespo_qms.BESPO_QMS.doctype.outgoing_document.outgoing_document.get_opportunity_details',
+            method: 'bespo_qms.api.get_opportunity_details',
             args: { opportunity: frm.doc.opportunity },
             callback: function(r) {
                 if (!r.message) return;
@@ -161,7 +160,7 @@ frappe.ui.form.on('Outgoing Document', {
     project: function(frm) {
         if (!frm.doc.project) return;
         frappe.call({
-            method: 'bespo_qms.BESPO_QMS.doctype.outgoing_document.outgoing_document.get_project_details',
+            method: 'bespo_qms.api.get_project_details',
             args: { project: frm.doc.project },
             callback: function(r) {
                 if (!r.message) return;
@@ -183,8 +182,6 @@ frappe.ui.form.on('Outgoing Document', {
         except Exception as e:
             print(f"Error creating Client Script '{script_name}': {str(e)}")
             frappe.log_error(f"Error creating Client Script: {script_name}", str(e))
-
-    frappe.db.commit()
 
 if __name__ == "__main__":
     update_client_script()

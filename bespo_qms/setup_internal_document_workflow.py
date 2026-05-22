@@ -5,17 +5,14 @@ def create_workflow_state(state):
         doc = frappe.new_doc("Workflow State")
         doc.workflow_state_name = state
         doc.insert(ignore_permissions=True)
-        frappe.db.commit()
 
 def create_workflow_action(action):
     if not frappe.db.exists("Workflow Action Master", action):
         doc = frappe.new_doc("Workflow Action Master")
         doc.workflow_action_name = action
         doc.insert(ignore_permissions=True)
-        frappe.db.commit()
 
 def setup_internal_document_workflow():
-    frappe.set_user("Administrator")
     
     # Ensure states and actions exist to prevent LinkValidationError
     states = ["Draft", "Pending", "Approved", "Cancelled"]
@@ -48,7 +45,6 @@ def setup_internal_document_workflow():
         wf.append("transitions", {"state": "Approved", "action": "Cancel", "next_state": "Cancelled", "allowed": "QMS Executive"})
         
         wf.insert(ignore_permissions=True)
-        frappe.db.commit()
         print("Internal Document Workflow created successfully.")
     else:
         print("Internal Document Workflow already exists.")

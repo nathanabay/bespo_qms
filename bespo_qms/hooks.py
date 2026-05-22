@@ -2,7 +2,7 @@ app_name = "bespo_qms"
 app_title = "Bespo QMS"
 app_publisher = "BESPO"
 app_description = "ISO 9001 Quality Management System — Document Control & Approval"
-app_email = "NATHANAMARE@BESPO.ET"
+app_email = "qms@bespo.et"
 app_license = "mit"
 app_logo_url = "/assets/bespo_qms/images/bespo_qms_logo.png"
 
@@ -101,6 +101,8 @@ after_install = [
     "bespo_qms.setup_notification.setup_email_notification",
     "bespo_qms.setup_sla_alerts.setup_sla_alerts",
     "bespo_qms.setup_print_format.setup_print_format",
+    "bespo_qms.setup_department_fields.add_department_fields",
+    "bespo_qms.setup_kanban.create_kanban",
 ]
 
 # Uninstallation

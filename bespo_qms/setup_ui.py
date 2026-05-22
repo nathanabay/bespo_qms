@@ -30,8 +30,6 @@ def create_roles_and_letterhead():
                 "is_default": 1
             }).insert()
             print(f"Letterhead {letterhead_name} created.")
-
-        frappe.db.commit()
     finally:
         # Restore original flag state
         frappe.flags.ignore_account_permission = original_flag

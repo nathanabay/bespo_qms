@@ -180,6 +180,32 @@
     "workflow_builder_id": null
    },
    {
+    "action": "Cancel",
+    "allow_self_approval": 1,
+    "allowed": "QMS Executive",
+    "condition": null,
+    "next_state": "Cancelled",
+    "parent": "Internal Document Workflow",
+    "parentfield": "transitions",
+    "parenttype": "Workflow",
+    "send_email_to_creator": 0,
+    "state": "Draft",
+    "workflow_builder_id": null
+   },
+   {
+    "action": "Cancel",
+    "allow_self_approval": 1,
+    "allowed": "QMS Executive",
+    "condition": null,
+    "next_state": "Cancelled",
+    "parent": "Internal Document Workflow",
+    "parentfield": "transitions",
+    "parenttype": "Workflow",
+    "send_email_to_creator": 0,
+    "state": "Pending",
+    "workflow_builder_id": null
+   },
+   {
     "action": "Approve",
     "allow_self_approval": 1,
     "allowed": "QMS Executive",
@@ -316,6 +342,19 @@
   ],
   "transitions": [
    {
+    "action": "Cancel",
+    "allow_self_approval": 1,
+    "allowed": "QMS Executive",
+    "condition": null,
+    "next_state": "Cancelled",
+    "parent": "Outgoing Document Approval",
+    "parentfield": "transitions",
+    "parenttype": "Workflow",
+    "send_email_to_creator": 0,
+    "state": "Draft",
+    "workflow_builder_id": null
+   },
+   {
     "action": "Submit for Approval",
     "allow_self_approval": 1,
     "allowed": "QMS Executive",
@@ -326,6 +365,19 @@
     "parenttype": "Workflow",
     "send_email_to_creator": 0,
     "state": "Draft",
+    "workflow_builder_id": null
+   },
+   {
+    "action": "Cancel",
+    "allow_self_approval": 1,
+    "allowed": "QMS Executive",
+    "condition": null,
+    "next_state": "Cancelled",
+    "parent": "Outgoing Document Approval",
+    "parentfield": "transitions",
+    "parenttype": "Workflow",
+    "send_email_to_creator": 0,
+    "state": "Pending",
     "workflow_builder_id": null
    },
    {
@@ -365,6 +417,19 @@
     "parenttype": "Workflow",
     "send_email_to_creator": 0,
     "state": "Approved",
+    "workflow_builder_id": null
+   },
+   {
+    "action": "Cancel",
+    "allow_self_approval": 1,
+    "allowed": "QMS Executive",
+    "condition": null,
+    "next_state": "Cancelled",
+    "parent": "Outgoing Document Approval",
+    "parentfield": "transitions",
+    "parenttype": "Workflow",
+    "send_email_to_creator": 0,
+    "state": "Dispatched",
     "workflow_builder_id": null
    },
    {

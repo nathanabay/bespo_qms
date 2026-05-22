@@ -4,7 +4,6 @@ import json
 def setup_workspaces():
     setup_ethiopia_compliance()
     setup_iso_quality()
-    frappe.db.commit()
     print("Workspaces configured successfully.")
 
 def setup_ethiopia_compliance():

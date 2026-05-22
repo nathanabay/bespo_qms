@@ -1,7 +1,6 @@
 import frappe
 
 def setup_sla_alerts():
-    frappe.set_user("Administrator")
 
     # Define the Notification for Stagnant Pending Documents
     alert_name = "QMS Stagnant Approval Alert"
@@ -13,7 +12,7 @@ def setup_sla_alerts():
         doc.document_type = "Outgoing Document"
         doc.event = "Days After"
         doc.date_changed = "modified"
-        doc.days_in_advance = -2
+        doc.days_in_advance = 0  # Fire on the day; status==Pending condition gates further
         if doc.condition != "doc.status == 'Pending'":
             doc.condition = "doc.status == 'Pending'"
         doc.message = """
@@ -39,7 +38,7 @@ def setup_sla_alerts():
         doc.document_type = "Outgoing Document"
         doc.event = "Days After"
         doc.date_changed = "modified"  # We track from the time it was dragged to Pending (last modified date)
-        doc.days_in_advance = -2  # -2 means "2 days AFTER" the date_changed
+        doc.days_in_advance = 0  # Fire on the day; condition gates the alert
         doc.condition = "doc.status == 'Pending'"
         doc.channel = "Email"
         doc.send_system_notification = 1

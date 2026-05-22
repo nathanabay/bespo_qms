@@ -5,7 +5,6 @@ def create_role(role_name):
         doc = frappe.new_doc("Role")
         doc.role_name = role_name
         doc.insert(ignore_permissions=True)
-        frappe.db.commit()
         print(f"Created role: {role_name}")
     else:
         print(f"Role {role_name} already exists.")
@@ -28,9 +27,6 @@ def add_doctype_perms(doctype, role):
         print(f"Added docperm for {doctype} - {role}")
 
 def setup_department_roles():
-    frappe.set_user("Administrator")
-    
-    # The new roles
     roles = ["QMS Finance", "QMS Procurement", "QMS Engineering", "QMS HR"]
     for r in roles:
         create_role(r)
@@ -45,8 +41,6 @@ def setup_department_roles():
             
     # Also ensure standard QMS User has generic access to Internal Document if we didn't add it in Phase 7
     add_doctype_perms("Internal Document", "QMS User")
-    
-    frappe.db.commit()
 
 if __name__ == "__main__":
     setup_department_roles()

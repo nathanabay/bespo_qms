@@ -2,8 +2,7 @@ import frappe
 import json
 
 def setup_dashboards():
-    frappe.set_user("Administrator")
-    
+
     # --- 1. Create Number Cards ---
     cards = [
         {
@@ -85,8 +84,6 @@ def setup_dashboards():
         doc.is_public = 1
         doc.insert(ignore_permissions=True)
         print(f"Dashboard Chart '{ch['name']}' created.")
-
-    frappe.db.commit()
 
 if __name__ == "__main__":
     setup_dashboards()
